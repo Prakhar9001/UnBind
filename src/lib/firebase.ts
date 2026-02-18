@@ -1,4 +1,4 @@
-// Firebase initialization for Unbind
+// Firebase initialization for UnBind
 // REPLACE the config values below with your Firebase project config
 
 import { initializeApp } from "firebase/app";

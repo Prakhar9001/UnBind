@@ -4,7 +4,7 @@ import { ErrorBoundary } from "./error-boundary";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Unbind — Smarter Quitting, Better Reading",
+  title: "UnBind — AI Reading Coach",
   description:
     "Turn reading abandonment into strength. AI-powered coaching that helps you decide when to push through and when to quit guilt-free.",
 };

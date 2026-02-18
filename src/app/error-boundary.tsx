@@ -21,7 +21,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error("[Unbind] Render error caught:", error, info.componentStack);
+    console.error("[UnBind] Render error caught:", error, info.componentStack);
   }
 
   render() {
@@ -52,7 +52,7 @@ export class ErrorBoundary extends React.Component<
                 marginBottom: 24,
               }}
             >
-              Unbind hit an unexpected error. Your data is safe — try
+              UnBind hit an unexpected error. Your data is safe — try
               refreshing the page.
             </p>
             <button

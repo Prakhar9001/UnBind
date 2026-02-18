@@ -51,7 +51,7 @@ export function useBooks(userId: string | null) {
         setLoading(false);
       },
       (error) => {
-        console.error("[Unbind] Firestore listener error:", error);
+        console.error("[UnBind] Firestore listener error:", error);
         setLoading(false);
       }
     );

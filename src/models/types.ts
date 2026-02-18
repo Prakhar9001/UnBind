@@ -1,4 +1,4 @@
-// Models for Unbind — matching gemini.md Data Schema
+// Models for UnBind — matching gemini.md Data Schema
 
 export interface UserProfile {
   id: string;

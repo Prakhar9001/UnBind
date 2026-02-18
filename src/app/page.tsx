@@ -21,7 +21,7 @@ export default function Home() {
     return (
       <div className="loading-screen">
         <div className="loading-spinner" />
-        <p style={{ color: "var(--text-muted)", fontSize: 14 }}>Loading Unbind...</p>
+        <p style={{ color: "var(--text-muted)", fontSize: 14 }}>Loading UnBind...</p>
       </div>
     );
   }
@@ -241,7 +241,7 @@ function DashboardScreen({
   return (
     <>
       <div className="page-header">
-        <h1>Unbind</h1>
+        <h1>UnBind</h1>
         <p className="subtitle">Your reading intelligence dashboard</p>
       </div>
 
@@ -703,7 +703,7 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
       await seedTestData(userId);
       setSeeded(true);
     } catch (err) {
-      console.error("[Unbind] Seed error:", err);
+      console.error("[UnBind] Seed error:", err);
     } finally {
       setSeeding(false);
     }
@@ -774,7 +774,7 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
         <div className="coach-header">
           <div className="coach-avatar">💡</div>
           <div>
-            <div className="coach-name">Unbind Philosophy</div>
+            <div className="coach-name">UnBind Philosophy</div>
             <div className="coach-label">Remember</div>
           </div>
         </div>

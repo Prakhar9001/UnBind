@@ -33,7 +33,7 @@ export default function LoginScreen() {
         {/* BRANDING */}
         <div className="login-brand">
           <div className="login-icon">📖</div>
-          <h1 className="login-title">Unbind</h1>
+          <h1 className="login-title">UnBind</h1>
           <p className="login-subtitle">Smarter Quitting, Better Reading</p>
         </div>
 
