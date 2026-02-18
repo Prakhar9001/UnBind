@@ -825,14 +825,14 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 20px;
-  background: linear-gradient(135deg, var(--accent) 0%, #2563EB 100%);
-  color: #FFFFFF;
+  background: rgba(245, 158, 11, 1) !important;
+  color: #FFFFFF !important;
   font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: none;
+  border: none !important;
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   z-index: 50;
@@ -840,6 +840,7 @@ body {
 
 .fab:hover {
   transform: scale(1.08);
+  background: rgba(245, 158, 11, 0.8) !important;
   box-shadow: 0 12px 32px rgba(59, 130, 246, 0.55);
 }
 
