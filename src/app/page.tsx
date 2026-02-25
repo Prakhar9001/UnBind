@@ -8,7 +8,6 @@ import {
   addBookToFirestore,
   updateBookInFirestore,
   deleteBookFromFirestore,
-  seedTestData,
 } from "@/lib/firestore-hooks";
 import LoginScreen from "@/components/login-screen";
 
@@ -45,10 +44,10 @@ function AppShell({ userId, userEmail }: { userId: string; userEmail: string }) 
   const [confirmDelete, setConfirmDelete] = useState<Book | null>(null);
 
   const tabs = [
-    { id: "dashboard" as const, icon: "📊", label: "Dashboard" },
-    { id: "history" as const, icon: "📚", label: "History" },
-    { id: "insights" as const, icon: "🧠", label: "Insights" },
-    { id: "profile" as const, icon: "👤", label: "Profile" },
+    { id: "dashboard" as const, icon: "⚡", label: "Dashboard" },
+    { id: "history" as const, icon: "⏳", label: "History" },
+    { id: "insights" as const, icon: "🧿", label: "Insights" },
+    { id: "profile" as const, icon: "🥷", label: "Profile" },
   ];
 
   const handleAddBook = useCallback(
@@ -160,7 +159,7 @@ function AppShell({ userId, userEmail }: { userId: string; userEmail: string }) 
         <ConfirmDialog
           title="Delete Book"
           message={`Delete "${confirmDelete.title}"? All progress data will be permanently lost.`}
-          confirmLabel="🗑️ Delete"
+          confirmLabel="🌪️ Delete"
           onConfirm={() => handleDeleteBook(confirmDelete)}
           onCancel={() => setConfirmDelete(null)}
         />
@@ -277,7 +276,7 @@ function DashboardScreen({
       {currentlyReading.length > 0 && (
         <div className="section">
           <div className="section-header">
-            <h2 className="section-title">📖 Currently Reading</h2>
+            <h2 className="section-title">🚀 Currently Reading</h2>
           </div>
           <div className="book-list">
             {currentlyReading.map((book) => (
@@ -306,14 +305,14 @@ function DashboardScreen({
                     className="coach-btn-inline"
                     onClick={(e) => { e.stopPropagation(); onCoachMe(book); }}
                   >
-                    🤖 Coach Me
+                    ⚡ Coach Me
                   </button>
                   <button
                     className="btn-ghost danger"
                     onClick={(e) => onDelete(book, e)}
                     title="Delete book"
                   >
-                    🗑️
+                    🌪️
                   </button>
                 </div>
               </div>
@@ -325,7 +324,7 @@ function DashboardScreen({
       {/* EMPTY STATE */}
       {books.length === 0 && (
         <div className="empty-state">
-          <div className="empty-icon">📚</div>
+          <div className="empty-icon">⏳</div>
           <div className="empty-title">Your Library is Empty</div>
           <div className="empty-text">
             Tap the + button to add your first book and start tracking your reading patterns.
@@ -337,7 +336,7 @@ function DashboardScreen({
       {books.length > 0 && (
         <div className="coach-card">
           <div className="coach-header">
-            <div className="coach-avatar">🤖</div>
+            <div className="coach-avatar">⚡</div>
             <div>
               <div className="coach-name">AI Reading Coach</div>
               <div className="coach-label">Pattern Alert</div>
@@ -423,7 +422,7 @@ function HistoryScreen({
       {/* BOOK LIST */}
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">📚</div>
+          <div className="empty-icon">⏳</div>
           <div className="empty-title">No books found</div>
           <div className="empty-text">
             {searchQuery ? "Try a different search term." : "Tap + to add your first book!"}
@@ -439,9 +438,9 @@ function HistoryScreen({
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div className="book-title">{book.title}</div>
                     <span className={`status-badge ${book.status.toLowerCase()}`}>
-                      {book.status === "Reading" && "📖"}
-                      {book.status === "Finished" && "✅"}
-                      {book.status === "Abandoned" && "⏸️"}
+                      {book.status === "Reading" && "🚀"}
+                      {book.status === "Finished" && "🏆"}
+                      {book.status === "Abandoned" && "🧊"}
                       {" " + book.status}
                     </span>
                   </div>
@@ -470,14 +469,14 @@ function HistoryScreen({
                   className="coach-btn-inline"
                   onClick={(e) => { e.stopPropagation(); onCoachMe(book); }}
                 >
-                  🤖 Coach Me
+                  ⚡ Coach Me
                 </button>
                 <button
                   className="btn-ghost danger"
                   onClick={(e) => onDelete(book, e)}
                   title="Delete book"
                 >
-                  🗑️
+                  🌪️
                 </button>
               </div>
             </div>
@@ -687,8 +686,6 @@ function InsightsScreen({ books }: { books: Book[] }) {
 // ━━━━━━━━━━━━━━ PROFILE SCREEN ━━━━━━━━━━━━━━
 function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail: string; userId: string }) {
   const { signOut } = useAuth();
-  const [seeding, setSeeding] = useState(false);
-  const [seeded, setSeeded] = useState(false);
 
   const stats = useMemo(() => {
     const totalPages = books.reduce((s, b) => s + b.progress_pages, 0);
@@ -696,18 +693,6 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
     const streak = finished; // simplified
     return { totalPages, finished, streak, totalBooks: books.length };
   }, [books]);
-
-  const handleSeedData = async () => {
-    setSeeding(true);
-    try {
-      await seedTestData(userId);
-      setSeeded(true);
-    } catch (err) {
-      console.error("[UnBind] Seed error:", err);
-    } finally {
-      setSeeding(false);
-    }
-  };
 
   return (
     <>
@@ -774,35 +759,19 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
         <div className="coach-header">
           <div className="coach-avatar">💡</div>
           <div>
-            <div className="coach-name">UnBind Philosophy</div>
-            <div className="coach-label">Remember</div>
+            <div className="coach-name">About UnBind</div>
+            <div className="coach-label">Why I built this</div>
           </div>
         </div>
-        <div className="coach-message">
-          <strong>Smarter quitting {">"}  forced finishing.</strong>
-          <br />
-          Your data coaches you. Every abandon teaches something. Every finish is earned.
+        <div className="coach-message" style={{ lineHeight: 1.5 }}>
+          I almost stopped reading because I thought I <em>had</em> to finish everything I started. It felt like work.
+          <br /><br />
+          I built UnBind to get the joy back—to prove that quitting is a strategy, not a failure.
         </div>
       </div>
 
       {/* PROFILE ACTIONS */}
       <div className="profile-actions">
-        {/* SEED TEST DATA */}
-        {!seeded && (
-          <button
-            className="btn btn-secondary btn-full"
-            onClick={handleSeedData}
-            disabled={seeding}
-          >
-            {seeding ? "⏳ Adding test books..." : "🧪 Seed Test Data (5 Books for AI Verification)"}
-          </button>
-        )}
-        {seeded && (
-          <div style={{ textAlign: "center", color: "var(--success)", fontSize: 13, fontWeight: 600 }}>
-            ✅ 5 test books added! Check Dashboard & Insights.
-          </div>
-        )}
-
         {/* SIGN OUT */}
         <button className="btn btn-secondary btn-full" onClick={signOut}>
           🚪 Sign Out

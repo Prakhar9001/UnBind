@@ -75,4 +75,4 @@ export const GENRES = [
   "Young Adult",
 ] as const;
 
-export const BOOK_EMOJIS = ["📕", "📗", "📘", "📙", "📓", "📔", "📚", "📖"] as const;
+export const BOOK_EMOJIS = ["🪐", "🪩", "🌀", "💠", "🌋", "☄️", "🌊", "🔮"] as const;
