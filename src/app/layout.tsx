@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: "UnBind — AI Reading Coach",
   description:
     "Turn reading abandonment into strength. AI-powered coaching that helps you decide when to push through and when to quit guilt-free.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +29,6 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="UnBind" />
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         {/* PWA: Service Worker registration */}
         <script
           dangerouslySetInnerHTML={{
