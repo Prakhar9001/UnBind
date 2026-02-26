@@ -7,6 +7,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
+  sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -16,6 +19,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   error: string | null;
 }
 
@@ -25,6 +30,8 @@ const AuthContext = createContext<AuthContextType>({
   signIn: async () => { },
   signUp: async () => { },
   signOut: async () => { },
+  resetPassword: async () => { },
+  signInWithGoogle: async () => { },
   error: null,
 });
 
@@ -79,13 +86,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      setError(null);
+      await sendPasswordResetEmail(auth, email);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Password reset failed";
+      if (msg.includes("user-not-found")) {
+        setError("No account found with this email.");
+      } else if (msg.includes("too-many-requests")) {
+        setError("Too many attempts. Try again later.");
+      } else if (msg.includes("invalid-email")) {
+        setError("Please enter a valid email address.");
+      } else {
+        setError(msg.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim());
+      }
+      throw err;
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      setError(null);
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Google sign-in failed";
+      if (msg.includes("popup-closed-by-user")) {
+        // User closed the popup — not an error, just ignore
+        return;
+      } else if (msg.includes("popup-blocked")) {
+        setError("Popup was blocked. Please allow popups for this site.");
+      } else if (msg.includes("cancelled-popup-request")) {
+        // Another popup is already open — ignore
+        return;
+      } else {
+        setError(msg.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim());
+      }
+      throw err;
+    }
+  };
+
   const signOut = async () => {
     setError(null);
     await firebaseSignOut(auth);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, error }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, resetPassword, signInWithGoogle, error }}>
       {children}
     </AuthContext.Provider>
   );
