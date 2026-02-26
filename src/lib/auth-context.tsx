@@ -10,8 +10,10 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  deleteUser,
 } from "firebase/auth";
 import { auth } from "./firebase";
+import { deleteAllUserData } from "./firestore-hooks";
 
 interface AuthContextType {
   user: User | null;
@@ -21,6 +23,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
   error: string | null;
 }
 
@@ -32,6 +35,7 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => { },
   resetPassword: async () => { },
   signInWithGoogle: async () => { },
+  deleteAccount: async () => { },
   error: null,
 });
 
@@ -132,8 +136,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await firebaseSignOut(auth);
   };
 
+  const deleteAccount = async () => {
+    try {
+      setError(null);
+      const currentUser = auth.currentUser;
+      if (!currentUser) return;
+
+      // 1. Delete Firestore data first
+      await deleteAllUserData(currentUser.uid);
+
+      // 2. Delete Auth user
+      await deleteUser(currentUser);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Account deletion failed";
+      if (msg.includes("requires-recent-login")) {
+        setError("Security: Please sign out and sign back in before deleting your account.");
+      } else {
+        setError(msg.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim());
+      }
+      throw err;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, resetPassword, signInWithGoogle, error }}>
+    <AuthContext.Provider value={{
+      user,
+      loading,
+      signIn,
+      signUp,
+      signOut,
+      resetPassword,
+      signInWithGoogle,
+      deleteAccount,
+      error
+    }}>
       {children}
     </AuthContext.Provider>
   );

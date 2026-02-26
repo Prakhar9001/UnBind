@@ -9,6 +9,7 @@ import {
   updateDoc,
   deleteDoc,
   setDoc,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { Book, BOOK_EMOJIS } from "@/models/types";
@@ -83,6 +84,13 @@ export async function updateBookInFirestore(
 export async function deleteBookFromFirestore(userId: string, bookId: string): Promise<void> {
   const bookRef = doc(db, "users", userId, "books", bookId);
   await deleteDoc(bookRef);
+}
+
+export async function deleteAllUserData(userId: string): Promise<void> {
+  const booksRef = collection(db, "users", userId, "books");
+  const snapshot = await getDocs(booksRef);
+  const deletePromises = snapshot.docs.map((d) => deleteDoc(d.ref));
+  await Promise.all(deletePromises);
 }
 
 // ━━━━━━━━━━━━━━ SEED TEST DATA ━━━━━━━━━━━━━━

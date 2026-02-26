@@ -685,7 +685,17 @@ function InsightsScreen({ books }: { books: Book[] }) {
 
 // ━━━━━━━━━━━━━━ PROFILE SCREEN ━━━━━━━━━━━━━━
 function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail: string; userId: string }) {
-  const { signOut } = useAuth();
+  const { signOut, deleteAccount } = useAuth();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccount();
+      // Auth change will trigger redirect automatically
+    } catch (err) {
+      console.error("Delete account error:", err);
+    }
+  };
 
   const stats = useMemo(() => {
     const totalPages = books.reduce((s, b) => s + b.progress_pages, 0);
@@ -776,7 +786,28 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
         <button className="btn btn-secondary btn-full" onClick={signOut}>
           🚪 Sign Out
         </button>
+
+        {/* DANGER ZONE */}
+        <div className="danger-zone">
+          <div className="danger-title">Danger Zone</div>
+          <p className="danger-text">
+            Permanently delete your account and all reading data. This action cannot be undone.
+          </p>
+          <button className="btn-danger-outline" onClick={() => setShowDeleteConfirm(true)}>
+            🗑️ Delete Account
+          </button>
+        </div>
       </div>
+
+      {showDeleteConfirm && (
+        <ConfirmDialog
+          title="Delete Account?"
+          message="This will permanently wipe all your book logs, stats, and settings. Are you absolutely sure?"
+          confirmLabel="Delete Everything"
+          onConfirm={handleDeleteAccount}
+          onCancel={() => setShowDeleteConfirm(false)}
+        />
+      )}
     </>
   );
 }

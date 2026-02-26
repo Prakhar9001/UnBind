@@ -1188,3 +1188,46 @@ body {
   gap: 12px;
   margin-top: 20px;
 }
+
+/* ━━━━━━━━━━━━━━ DANGER ZONE ━━━━━━━━━━━━━━ */
+.danger-zone {
+  margin-top: 40px;
+  padding: 24px;
+  background: rgba(255, 68, 68, 0.03);
+  border: 1px solid rgba(255, 68, 68, 0.15);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.danger-title {
+  color: #ff4444;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.danger-text {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.btn-danger-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  color: #ff4444;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-danger-outline:hover:not(:disabled) {
+  background: rgba(255, 68, 68, 0.1);
+  border-color: #ff4444;
+}
