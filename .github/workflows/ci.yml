@@ -1,0 +1,39 @@
+name: Build and Verify
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    name: Build & Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Using LTS
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Type Check
+        run: npx tsc --noEmit
+
+      - name: Build Next.js App
+        run: npm run build
+        env:
+          # If we had critical build-time env vars (like Firebase config),
+          # we would map them here using GitHub Secrets.
+          CI: true
