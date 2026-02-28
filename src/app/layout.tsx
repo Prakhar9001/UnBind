@@ -25,8 +25,9 @@ export default function RootLayout({
         {/* PWA: Manifest */}
         <link rel="manifest" href="/manifest.json" />
         {/* PWA: Theme color (browser chrome color on Android) */}
-        <meta name="theme-color" content="#6366f1" />
+        <meta name="theme-color" content="#1C2434" />
         {/* PWA: iOS home screen support */}
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="UnBind" />

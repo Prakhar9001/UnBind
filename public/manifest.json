@@ -1,8 +1,17 @@
 {
   "name": "UnBind - AI Reading Coach",
   "short_name": "UnBind",
+  "id": "unbind-ai-reading-coach",
+  "categories": [
+    "books",
+    "productivity",
+    "lifestyle"
+  ],
   "description": "Smarter quitting, better reading. AI-powered coaching that helps you decide when to push through and when to quit guilt-free.",
   "start_url": "/",
+  "scope": "/",
+  "dir": "ltr",
+  "lang": "en-US",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0a0a",
@@ -29,6 +38,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

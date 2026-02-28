@@ -1,5 +1,5 @@
-// UnBind Service Worker — v2
-const CACHE_NAME = 'unbind-v2';
+// UnBind Service Worker — v3
+const CACHE_NAME = 'unbind-v3';
 
 // Files to cache for offline access
 const ASSETS_TO_CACHE = [
@@ -10,6 +10,7 @@ const ASSETS_TO_CACHE = [
   '/icons/icon-32x32.png',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
+  '/icons/icon-maskable-512x512.png',
 ];
 
 // Install: cache core assets
