@@ -24,17 +24,17 @@
 
 | Factor | Computation | Result |
 |--------|------------|:------:|
-| Genre (40pt) | Fiction books: Dune✅, 1984✅, DaVinci📖, Atomic❌ → 2/4 = 50% | +0 (not ≥60) |
+| Genre (40pt) | Fiction/Thriller: Dune(F), 1984(F), DaVinci(R). Total=3, Finished=2 → 67% | +40 |
 | Quit Zone (30pt) | 60% > 18% + 10 = 28%? **YES** | +30 |
 | Momentum (30pt) | 60% > 50%? **YES** | +30 |
 
 ### ✅ Expected Output
 | Field | Value |
 |-------|-------|
-| Score | **60** |
+| Score | **100** |
 | Recommendation | **PUSH** |
 | Confidence | **50%** |
-| Reasons | 2 — "Survival Zone" + "Momentum" |
+| Reasons | 3 — "Genre Strength", "Survival Zone", "Momentum" |
 
 ---
 
@@ -44,8 +44,8 @@
 
 | Factor | Computation | Result |
 |--------|------------|:------:|
-| Genre (40pt) | Self-Help: Atomic❌. Total=1 → 0%, but total ≤2 | +0 (no reason) |
-| Quit Zone (30pt) | 10% > 28%? **NO**. ~200pg similar books? None within ±100 | +0 |
+| Genre (40pt) | Self-Help: Atomic(A), NewBook. Total=2, Finished=0 → 0% (but total ≤2) | +0 (no reason) |
+| Quit Zone (30pt) | 10% > 28%? **NO**. 100-300pg similar books? NewBook(200) only. | +0 |
 | Momentum (30pt) | 10% > 50%? NO. 10% < 15%? **YES** | +0 (reason added) |
 
 ### ✅ Expected Output
@@ -64,7 +64,7 @@
 
 | Factor | Computation | Result |
 |--------|------------|:------:|
-| Genre (40pt) | Fiction: Dune✅, 1984✅, DaVinci📖, Atomic❌ → 2/4 = 50% | +0 |
+| Genre (40pt) | Fiction: Dune(F), 1984(F), DaVinci(R), NewBook. Total=4, Fin=2 → 50% | +0 |
 | Quit Zone (30pt) | 80% > 28%? **YES** | +30 |
 | Momentum (30pt) | 80% > 50%? **YES** | +30 |
 
@@ -74,7 +74,7 @@
 | Score | **60** |
 | Recommendation | **PUSH** |
 | Confidence | **60%** |
-| Reasons | 2 — "Survival Zone" + "Momentum" |
+| Reasons | 2 — "Survival Zone", "Momentum" |
 
 ---
 
@@ -98,8 +98,8 @@
 
 | Factor | Computation | Result |
 |--------|------------|:------:|
-| Genre (40pt) | History: Sapiens❌. Total=1 → 0%, but total ≤2 | +0 (no reason) |
-| Quit Zone (30pt) | 25% > 28%? **NO**. Similar 400-600pg: Dune✅, DaVinci📖, Sapiens❌ → 1/3 = 33% | +0 (33% not ≤30) |
+| Genre (40pt) | History: Sapiens(A), NewBook. Total=2, Fin=0 → 0%. (but ≤2) | +0 (no reason) |
+| Quit Zone (30pt) | 25% > 28%? **NO**. 400-600pg: Dune, DaVinci, Sapiens, NewBook. Fin=1/4 → 25% | +0 (length risk added) |
 | Momentum (30pt) | 25% > 50%? NO. 25% < 15%? NO | +0 (no reason) |
 
 ### ✅ Expected Output
@@ -108,7 +108,7 @@
 | Score | **0** |
 | Recommendation | **QUIT** |
 | Confidence | **60%** |
-| Reasons | 0 — all inconclusive |
+| Reasons | 1 — "Length Risk" |
 
 ---
 
@@ -117,9 +117,9 @@
 After any algorithm change, run through all 5 cases and confirm:
 
 ```markdown
-- [ ] Test Case 1: Score=60, PUSH, Confidence=50%, 2 reasons
+- [ ] Test Case 1: Score=100, PUSH, Confidence=50%, 3 reasons
 - [ ] Test Case 2: Score=0, QUIT, Confidence=60%, 1 reason
 - [ ] Test Case 3: Score=60, PUSH, Confidence=60%, 2 reasons
 - [ ] Test Case 4: ready=false, message matches, no score/recommendation
-- [ ] Test Case 5: Score=0, QUIT, Confidence=60%, 0 reasons
+- [ ] Test Case 5: Score=0, QUIT, Confidence=60%, 1 reason
 ```
