@@ -1,10 +1,13 @@
-// UnBind Service Worker — v1
-const CACHE_NAME = 'unbind-v1';
+// UnBind Service Worker — v2
+const CACHE_NAME = 'unbind-v2';
 
 // Files to cache for offline access
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.json',
+  '/favicon.ico',
+  '/icons/icon-16x16.png',
+  '/icons/icon-32x32.png',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
 ];

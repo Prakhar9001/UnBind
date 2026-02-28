@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider } from "@/lib/auth-context";
 import { ErrorBoundary } from "./error-boundary";
+import InstallPWABanner from "@/components/InstallPWABanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,6 +30,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="UnBind" />
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
         {/* PWA: Service Worker registration */}
         <script
           dangerouslySetInnerHTML={{
@@ -48,6 +53,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <AuthProvider>{children}</AuthProvider>
         </ErrorBoundary>
+        <InstallPWABanner />
       </body>
     </html>
   );
