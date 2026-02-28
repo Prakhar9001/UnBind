@@ -165,3 +165,19 @@ export async function seedTestData(userId: string): Promise<void> {
     await addDoc(booksRef, book);
   }
 }
+
+// ━━━━━━━━━━━━━━ FEEDBACK ━━━━━━━━━━━━━━
+export async function submitFeedback(
+  userId: string,
+  category: string,
+  message: string
+): Promise<void> {
+  const feedbackRef = collection(db, "feedback");
+  await addDoc(feedbackRef, {
+    userId,
+    category,
+    message: message.trim(),
+    createdAt: new Date().toISOString(),
+    appVersion: "1.0.0",
+  });
+}

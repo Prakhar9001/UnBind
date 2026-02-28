@@ -8,6 +8,7 @@ import {
   addBookToFirestore,
   updateBookInFirestore,
   deleteBookFromFirestore,
+  submitFeedback,
 } from "@/lib/firestore-hooks";
 import LoginScreen from "@/components/login-screen";
 
@@ -687,6 +688,7 @@ function InsightsScreen({ books }: { books: Book[] }) {
 function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail: string; userId: string }) {
   const { signOut, deleteAccount } = useAuth();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const handleDeleteAccount = async () => {
     try {
@@ -782,6 +784,14 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
 
       {/* PROFILE ACTIONS */}
       <div className="profile-actions">
+        {/* FEEDBACK */}
+        <button
+          className="btn btn-full feedback-btn"
+          onClick={() => setShowFeedbackModal(true)}
+        >
+          💬 Give Feedback
+        </button>
+
         {/* SIGN OUT */}
         <button className="btn btn-secondary btn-full" onClick={signOut}>
           🚪 Sign Out
@@ -808,7 +818,112 @@ function ProfileScreen({ books, userEmail, userId }: { books: Book[]; userEmail:
           onCancel={() => setShowDeleteConfirm(false)}
         />
       )}
+
+      {showFeedbackModal && (
+        <FeedbackModal
+          userId={userId}
+          onClose={() => setShowFeedbackModal(false)}
+        />
+      )}
     </>
+  );
+}
+
+// ━━━━━━━━━━━━━━ FEEDBACK MODAL ━━━━━━━━━━━━━━
+function FeedbackModal({ userId, onClose }: { userId: string; onClose: () => void }) {
+  const categories = ["🐛 Bug", "✨ Feature", "💬 General"];
+  const [selectedCategory, setSelectedCategory] = useState(categories[2]);
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async () => {
+    if (!message.trim() || status === "sending") return;
+    setStatus("sending");
+    try {
+      await submitFeedback(userId, selectedCategory, message);
+      setStatus("sent");
+    } catch (err) {
+      console.error("[UnBind] Feedback error:", err);
+      setStatus("error");
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-sheet" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-handle" />
+        <h2 style={{ fontSize: 22, fontWeight: 800, marginBottom: 6 }}>Give Feedback</h2>
+        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 24 }}>
+          Help make UnBind better. Every message is read.
+        </p>
+
+        {status === "sent" ? (
+          <div className="feedback-success">
+            <div style={{ fontSize: 48 }}>🎉</div>
+            <div style={{ fontSize: 18, fontWeight: 700, marginTop: 12 }}>Thank you!</div>
+            <p style={{ color: "var(--text-muted)", fontSize: 14, marginTop: 8 }}>
+              Your feedback has been received.
+            </p>
+            <button className="btn btn-secondary btn-full" style={{ marginTop: 24 }} onClick={onClose}>
+              Close
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* CATEGORY */}
+            <div className="input-group">
+              <label className="input-label">Category</label>
+              <div className="chip-group">
+                {categories.map((cat) => (
+                  <span
+                    key={cat}
+                    className={`chip ${selectedCategory === cat ? "selected" : ""}`}
+                    onClick={() => setSelectedCategory(cat)}
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* MESSAGE */}
+            <div className="input-group">
+              <label className="input-label">Your Message</label>
+              <textarea
+                className="input-field feedback-textarea"
+                placeholder="Tell us what's on your mind..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                maxLength={500}
+              />
+              <div style={{ textAlign: "right", fontSize: 12, color: "var(--text-muted)", marginTop: 4 }}>
+                {message.length}/500
+              </div>
+            </div>
+
+            {status === "error" && (
+              <p style={{ color: "var(--danger)", fontSize: 13, marginBottom: 12 }}>
+                ⚠️ Something went wrong. Please try again.
+              </p>
+            )}
+
+            <div style={{ display: "flex", gap: 12 }}>
+              <button className="btn btn-secondary" style={{ flex: 1 }} onClick={onClose}>
+                Cancel
+              </button>
+              <button
+                className="btn btn-primary"
+                style={{ flex: 1 }}
+                onClick={handleSubmit}
+                disabled={!message.trim() || status === "sending"}
+              >
+                {status === "sending" ? "Sending..." : "📨 Send"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 

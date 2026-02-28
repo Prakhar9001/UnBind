@@ -50,4 +50,13 @@ Unbind is a cross-platform mobile app (Android/iOS) and web app that turns readi
     - Layer 3: Tools (`tools/`)
 
 ## 6. Maintenance Log
-*(To be populated during Phase 5)*
+(Populated during Phase 5: Trigger)
+
+- **Platform**: Next.js 16.1 (Web App / PWA)
+- **Production URL**: `https://bookapp-six-virid.vercel.app`
+- **Hosting**: Vercel (Auto-deploys from GitHub `master` branch)
+- **CI/CD**: GitHub Actions `.github/workflows/ci.yml` (Runs TypeScript checking and build validation on every push/PR to master).
+- **Database**: Firebase Firestore (`unbind-reader-ff295`).
+- **Security**: Strict Firestore rules explicitly blocking global reads/writes and siloing books and feedback by `userId`.
+- **Primary AI Algorithm**: Located in `src/app/page.tsx` (`CoachModal`). Governed exclusively by the deterministic test fixtures defined in `.agent/skills/ai-coach-tuning`. No external API calls are made for coaching.
+- **Design System**: Global CSS tokens and variables defined in `src/app/globals.css`, governed by the `design-tokens` skill.

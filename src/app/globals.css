@@ -1348,3 +1348,41 @@ body {
   background: rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
 }
+
+/* ============================================
+   FEEDBACK MODAL
+   ============================================ */
+.feedback-btn {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+}
+
+.feedback-btn:hover {
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.25) 0%, rgba(45, 212, 191, 0.1) 100%);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.feedback-textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.feedback-success {
+  text-align: center;
+  padding: 20px 0;
+  animation: slideUp 0.3s ease;
+}

@@ -28,3 +28,15 @@
     - `npx next build` passed (exit code 0).
     - Dev server running at `http://localhost:3000`.
 - **Phase 3 Complete.**
+
+## [Date] Phase 4: Stylize & Logic Refinement
+- **PWA Implementation**: Configured `manifest.json`, generated maskable icons, and added a custom "Install UnBind" banner.
+- **AI Coach Precision**: Verified and corrected the deterministic AI scoring algorithm. Created strict mathematical test fixtures in `.agent/skills/ai-coach-tuning`.
+- **User Feedback Loop**: Implemented a `FeedbackModal` writing directly to a secure Firestore `feedback` collection.
+- **Phase 4 Complete.**
+
+## [Date] Phase 5: Trigger & Automate
+- **Deployment**: Successfully pushed production builds to Vercel (https://bookapp-six-virid.vercel.app).
+- **Security**: Hardened Firestore rules, restricting `feedback` writes to authenticated users.
+- **CI/CD Automation**: Created `.github/workflows/ci.yml` to run Node setup, dependency installation, TypeScript checks, and Next.js builds on every push/PR to master. Verified successful run on GitHub Actions.
+- **Phase 5 Complete.**

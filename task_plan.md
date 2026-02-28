@@ -6,25 +6,25 @@
 - [x] Define Data Schema in `gemini.md` (Data-First Rule)
 
 ## 🏗️ Phase 1: B - Blueprint
-- [ ] Research Google Books API and Firebase setup
-- [ ] Define Core Logic & Behavioral Rules matching PRD ("Smarter quitting")
+- [x] Research Google Books API and Firebase setup
+- [x] Define Core Logic & Behavioral Rules matching PRD ("Smarter quitting")
 
 ## ⚡ Phase 2: L - Link
-- [ ] Verify Google Books API connection
-- [ ] Verify Firebase connectivity (Auth/Firestore)
-- [ ] Create `tools/verify_links.py` (or equivalent script)
+- [x] Verify Google Books API connection
+- [x] Verify Firebase connectivity (Auth/Firestore)
+- [x] Create `tools/verify_links.py` (or equivalent script)
 
 ## ⚙️ Phase 3: A - Architect
-- [ ] Layer 1: Create Architecture SOPs (`architecture/`)
-- [ ] Layer 2: Define Navigation Logic
-- [ ] Layer 3: Build Core Tools (`tools/`) for Book Logging, Abandonment Tracking, and Insight Generation
+- [x] Layer 1: Create Architecture SOPs (`architecture/`)
+- [x] Layer 2: Define Navigation Logic
+- [x] Layer 3: Build Core Tools (`tools/`) for Book Logging, Abandonment Tracking, and Insight Generation
 
 ## ✨ Phase 4: S - Stylize
-- [ ] Refine AI Output Payload (Coaching messages)
-- [ ] UI/UX Implementation (Flutter/Web) based on design aesthetics
-- [ ] User Feedback Loop
+- [x] Refine AI Output Payload (Coaching messages)
+- [x] UI/UX Implementation (Flutter/Web) based on design aesthetics
+- [x] User Feedback Loop
 
 ## 🛰️ Phase 5: T - Trigger
-- [ ] Cloud Deployment (Firebase Hosting/App Distribution)
-- [ ] Setup Automation (if any)
-- [ ] Final Documentation
+- [x] Cloud Deployment (Firebase Hosting/App Distribution/Vercel)
+- [x] Setup Automation (GitHub Actions CI/CD)
+- [x] Final Documentation
